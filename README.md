@@ -1,4 +1,4 @@
-# API Exercise 1
+# API Exercises
 
 ## Exercise 1
 This exercise is a news website based on RSS feeds with technology news from BBC http://feeds.bbci.co.uk/news/technology/rss.xml and CNN http://rss.cnn.com/rss/edition_technology.rss
