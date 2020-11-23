@@ -70,13 +70,23 @@
             $response = curl_get($url);
             $xml = simplexml_load_string($response);
             foreach ($xml->channel->item as $myitem) {
-                echo '<div class="col-md-4">
+                $namespaces = $myitem->getNameSpaces(true);
+                $media = $myitem->children($namespaces['media']);
+                $thumb_url = $media->content->attributes()->url;
+
+                echo '<div class="col-md-6">
                         <div class="border rounded-lg m-2 p-3">
-                            <p><sub>'.$myitem->pubDate.'</sub></p>
-                            <h4><a href="'.$myitem->link.'" target="_blank">'.$myitem->title.'</a></h4>
-                            <p>'.$myitem->description.'</p>
-                            <p><a href="'.$myitem->link.'" target="_blank" class="btn btn-primary btn-sm">Read more</a></p>
-                            <p>'.$myitem->media.'</p>
+
+                            <div class="row">
+                                <div class="col-3">
+                                <a href="'.$myitem->link.'" target="_blank"><img src="'.$thumb_url.'" alt="'.$myitem->title.'" class="img-fluid border rounded-lg"></a>
+                                </div>
+                                <div class="col-9">
+                                    <h4><a href="'.$myitem->link.'" target="_blank">'.$myitem->title.'</a></h4>
+                                    <p>'.$myitem->description.'</p>
+                                    <p><a href="'.$myitem->link.'" target="_blank" class="btn btn-primary btn-sm">Read more</a></p>
+                                </div>
+                            </div>
                         </div>
                     </div>';
             }
