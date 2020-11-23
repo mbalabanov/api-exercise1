@@ -88,7 +88,15 @@
         <div class="col-md-8 offset-md-2 text-center">
             <div class="alert alert-primary" role="alert">
                 <h4>Joke of the Day</h4>
-                <div id="jokediv" class="m-4"></div>
+                <?php 
+                    require_once 'restful.php';
+
+                    $url = 'http://api.serri.codefactory.live/random/';
+                    $jokesresponse = curl_get($url);
+                    $jokeoftheday = json_decode($jokesresponse);
+
+                    echo $jokeoftheday->joke;
+                ?>
                 <p><sup>Courtesy of <a href="http://api.serri.codefactory.live/random/" target="_blank">http://api.serri.codefactory.live/random/</a></sup></p>
             </div>
         </div>
@@ -98,22 +106,6 @@
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-
-    <script>
-
-        let jokeoftheday = JSON.parse(`
-            <?php 
-                require_once 'restful.php';
-
-                $url = 'http://api.serri.codefactory.live/random/';
-                $jokesresponse = curl_get($url);
-
-                echo $jokesresponse;
-            ?>
-            `);
-
-        $("#jokediv").html(jokeoftheday.joke);
-    </script>
 
 </body>
 </html>
