@@ -30,9 +30,10 @@
     <div class="row">
         <div class="col-md-12 text-center">
             <img src="https://fontlot.com/wp-content/uploads/2020/04/bbc-logo-font.jpg" alt="BBC News" class="rounded-lg">
-            <h4>Today's News</h4>
+            <h4>Today's News on BBC</h4>
         </div>
     </div>
+
     <div class="row my-4">
         <?php
 
@@ -41,18 +42,47 @@
             $url = 'http://feeds.bbci.co.uk/news/technology/rss.xml';
             $response = curl_get($url);
             $xml = simplexml_load_string($response);
-            foreach ($xml->channel->item as $item) {
+            foreach ($xml->channel->item as $myitem) {
                 echo '<div class="col-md-4">
                         <div class="border rounded-lg m-2 p-3">
-                            <p><sub>'.$item->pubDate.'</sub></p>
-                            <h4><a href="'.$item->link.'" target="_blank">'.$item->title.'</a></h4>
-                            <p>'.$item->description.'</p>
-                            <p><a href="'.$item->link.'" target="_blank" class="btn btn-primary btn-sm">Read more</a></p>
+                            <p><sub>'.$myitem->pubDate.'</sub></p>
+                            <h4><a href="'.$myitem->link.'" target="_blank">'.$myitem->title.'</a></h4>
+                            <p>'.$myitem->description.'</p>
+                            <p><a href="'.$myitem->link.'" target="_blank" class="btn btn-primary btn-sm">Read more</a></p>
                         </div>
                     </div>';
             }
         ?>
     </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/CNN.svg/1920px-CNN.svg.png" alt="BBC News" height="100px">
+            <h4>Today's News on CNN</h4>
+        </div>
+    </div>
+
+    <div class="row my-4">
+        <?php
+            require_once 'restful.php';
+
+            $url = 'http://rss.cnn.com/rss/edition_technology.rss';
+            $response = curl_get($url);
+            $xml = simplexml_load_string($response);
+            foreach ($xml->channel->item as $myitem) {
+                echo '<div class="col-md-4">
+                        <div class="border rounded-lg m-2 p-3">
+                            <p><sub>'.$myitem->pubDate.'</sub></p>
+                            <h4><a href="'.$myitem->link.'" target="_blank">'.$myitem->title.'</a></h4>
+                            <p>'.$myitem->description.'</p>
+                            <p><a href="'.$myitem->link.'" target="_blank" class="btn btn-primary btn-sm">Read more</a></p>
+                            <p>'.$myitem->media.'</p>
+                        </div>
+                    </div>';
+            }
+        ?>
+    </div>
+
 
     <div class="row my-4" id="jokes">
         <div class="col-md-8 offset-md-2 text-center">
@@ -70,17 +100,18 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
     <script>
+
         let jokeoftheday = JSON.parse(`
-        <?php
-            require_once 'restful.php';
+            <?php 
+                require_once 'restful.php';
 
-            $url = 'http://api.serri.codefactory.live/random/';
-            $jokesresponse = curl_get($url);
+                $url = 'http://api.serri.codefactory.live/random/';
+                $jokesresponse = curl_get($url);
 
-            echo $jokesresponse;
-        ?>
-        `);
-        console.log(jokeoftheday.joke);
+                echo $jokesresponse;
+            ?>
+            `);
+
         $("#jokediv").html(jokeoftheday.joke);
     </script>
 
