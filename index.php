@@ -8,17 +8,14 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm" id="top">
-    <a class="navbar-brand" href="#top">API Exercise 1</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+    <a class="navbar-brand" href="#bbcnews">API Exercise 1</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#top">Home<span class="sr-only">(current)</span></a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="#bbcnews">BBC News</a>
             </li>
@@ -26,13 +23,14 @@
                 <a class="nav-link" href="#cnnnews">CNN News</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#jokes">Jokes</a>
+                <a class="nav-link" href="#jokes">Joke</a>
             </li>
         </ul>
     </div>
 </nav>
 
 <div class="container mt-5">
+
         <?php
 
             require_once 'restful.php';
@@ -54,10 +52,10 @@
 
             foreach ($xml->channel->item as $myitem) {
                 echo '<div class="col-md-4">
-                        <div class="border rounded-lg m-2 p-3">
-                            <p><sub>'.$myitem->pubDate.'</sub></p>
+                        <div class="border rounded-lg m-1 p-3 shadow-sm">
                             <h4><a href="'.$myitem->link.'" target="_blank">'.$myitem->title.'</a></h4>
                             <p>'.$myitem->description.'</p>
+                            <p><sup>'.$myitem->pubDate.'</sup></p>
                             <p><a href="'.$myitem->link.'" target="_blank" class="btn btn-primary btn-sm">Read more</a></p>
                         </div>
                     </div>';
@@ -91,7 +89,7 @@
                 $thumb_url = $media->content->attributes()->url;
 
                 echo '<div class="col-md-6">
-                        <div class="border rounded-lg m-2 p-3">
+                        <div class="border rounded-lg m-1 p-3 shadow-sm">
 
                             <div class="row">
                                 <div class="col-3">
@@ -114,8 +112,8 @@
 
     <div class="row my-4" id="jokes">
         <div class="col-md-8 offset-md-2 text-center">
-            <div class="alert alert-primary" role="alert">
-                <h4>Serri's Joke of the Day</h4>
+            <div class="alert alert-primary shadow" role="alert">
+                <h4>Serri's Awesome Joke of the Day</h4>
                 <blockquote class="blockquote">
                     <?php 
                         require_once 'restful.php';
