@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light" id="top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm" id="top">
     <a class="navbar-brand" href="#top">API Exercise 1</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -20,13 +20,19 @@
                 <a class="nav-link" href="#top">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="#bbcnews">BBC News</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#cnnnews">CNN News</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="#jokes">Jokes</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<div class="container my-4">
+<div class="container mt-5">
         <?php
 
             require_once 'restful.php';
@@ -36,8 +42,8 @@
             $xml = simplexml_load_string($response);
 
             echo '
-            <div class="row">
-                <div class="col-md-12 text-center">
+            <div class="row" id="bbcnews">
+                <div class="col-md-12 text-center mt-5">
                     <img src="'.$xml->channel->image->url.'" alt="'.$xml->channel->title.'">
                     <h4>'.$xml->channel->title.'</h4>
                 </div>
@@ -68,8 +74,8 @@
             $xml = simplexml_load_string($response);
 
             echo '
-            <div class="row">
-                <div class="col-md-12 text-center">
+            <div class="row mt-5" id="cnnnews">
+                <div class="col-md-12 text-center mt-5">
                     <img src="'.$xml->channel->image->url.'" alt="'.$xml->channel->title.'">
                     <h4>'.$xml->channel->title.'</h4>
                 </div>
@@ -110,16 +116,18 @@
         <div class="col-md-8 offset-md-2 text-center">
             <div class="alert alert-primary" role="alert">
                 <h4>Serri's Joke of the Day</h4>
-                <?php 
-                    require_once 'restful.php';
+                <blockquote class="blockquote">
+                    <?php 
+                        require_once 'restful.php';
 
-                    $url = 'http://api.serri.codefactory.live/random/';
-                    $jokesresponse = curl_get($url);
-                    $jokeoftheday = json_decode($jokesresponse);
+                        $url = 'http://api.serri.codefactory.live/random/';
+                        $jokesresponse = curl_get($url);
+                        $jokeoftheday = json_decode($jokesresponse);
 
-                    echo $jokeoftheday->joke;
-                ?>
-                <p><sup>Courtesy of <a href="http://api.serri.codefactory.live/random/" target="_blank">http://api.serri.codefactory.live/random/</a></sup></p>
+                        echo $jokeoftheday->joke;
+                    ?>
+                    <footer class="blockquote-footer">Courtesy of <cite title="Source Title"><a href="http://api.serri.codefactory.live/random/" target="_blank">http://api.serri.codefactory.live/random/</a></cite></footer>
+                </blockquote>
             </div>
         </div>
     </div>
