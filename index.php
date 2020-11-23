@@ -27,14 +27,6 @@
 </nav>
 
 <div class="container my-4">
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <img src="https://fontlot.com/wp-content/uploads/2020/04/bbc-logo-font.jpg" alt="BBC News" class="rounded-lg">
-            <h4>Today's News on BBC</h4>
-        </div>
-    </div>
-
-    <div class="row my-4">
         <?php
 
             require_once 'restful.php';
@@ -42,6 +34,18 @@
             $url = 'http://feeds.bbci.co.uk/news/technology/rss.xml';
             $response = curl_get($url);
             $xml = simplexml_load_string($response);
+
+            echo '
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <img src="'.$xml->channel->image->url.'" alt="'.$xml->channel->title.'">
+                    <h4>'.$xml->channel->title.'</h4>
+                </div>
+            </div>
+    
+            <div class="row my-4">
+            ';
+
             foreach ($xml->channel->item as $myitem) {
                 echo '<div class="col-md-4">
                         <div class="border rounded-lg m-2 p-3">
@@ -52,23 +56,28 @@
                         </div>
                     </div>';
             }
+            echo '</div>';
         ?>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/CNN.svg/1920px-CNN.svg.png" alt="BBC News" height="100px">
-            <h4>Today's News on CNN</h4>
-        </div>
-    </div>
 
-    <div class="row my-4">
         <?php
             require_once 'restful.php';
 
             $url = 'http://rss.cnn.com/rss/edition_technology.rss';
             $response = curl_get($url);
             $xml = simplexml_load_string($response);
+
+            echo '
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <img src="'.$xml->channel->image->url.'" alt="'.$xml->channel->title.'">
+                    <h4>'.$xml->channel->title.'</h4>
+                </div>
+            </div>
+    
+            <div class="row my-4">
+            ';
+
             foreach ($xml->channel->item as $myitem) {
                 $namespaces = $myitem->getNameSpaces(true);
                 $media = $myitem->children($namespaces['media']);
@@ -90,14 +99,15 @@
                         </div>
                     </div>';
             }
+            echo '</div>';
         ?>
-    </div>
+
 
 
     <div class="row my-4" id="jokes">
         <div class="col-md-8 offset-md-2 text-center">
             <div class="alert alert-primary" role="alert">
-                <h4>Joke of the Day</h4>
+                <h4>Serri's Joke of the Day</h4>
                 <?php 
                     require_once 'restful.php';
 
